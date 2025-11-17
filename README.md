@@ -1,16 +1,35 @@
-# wym
+# WYM (What's Your Music?)
 
-A new Flutter project.
+WYM은 사용자가 선택한 **하나의 곡의 오디오 특징(Audio Features)** 을 분석해  
+**비슷한 분위기의 노래를 추천**해주는 Flutter 기반 앱입니다.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- 노래 검색 & 자동 필터링
+- 곡의 오디오 특징 분석 (Spotify API)
+- 분위기 기반 추천(무드·에너지·댄서빌리티 등)
+- 국가/장르/가수 제외 등 필터 제공
+- 추천곡 선택 후 외부 플랫폼(YouTube/Spotify/Melon 등)으로 이동
+- 최근 기록 저장 및 홈 화면 카드 표시
 
-A few resources to get you started if this is your first Flutter project:
+## todo
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [x] 홈화면 제작
+- [x] 노래 선택
+  - [x] 노래 입력창 만들기
+  - [] 검색 결과 리스트에서 곡 선택
+- [ ] 원하는 국가 선택
+  - [ ] 국가선택 dropdown추가
+- [ ] 선택한 곡의 특징 가져오기
+  - [ ] 스포티파이 api 연결
+  - [ ] mood 데이터 가져오기
+- [ ] 비슷한 분위기 기반 노래 추천하기
+  - [ ] 각 추천곡 항목에 체크박스 추가
+  - [ ] 젠처 선택 기능
+  - [ ] 선택된 곡들의 id 리스트 저장
+- [ ] 최근 기록 저장
+  - [ ] 홈 화면 카드 표시
+- [ ] 외부 음악 플랫폼 연결
+  - [ ] 선택된 곡들의 플랫폼별 딥링크 생성
+  - [ ] 플랫폼 선택 BottomSheet UI
+  - [ ] url_launcher로 해당 플랫폼 앱 또는 웹 페이지 실행

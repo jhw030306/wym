@@ -3,7 +3,7 @@ import 'widgets/selected_music_section.dart';
 import 'widgets/mood_section.dart';
 import 'widgets/recommendation_section.dart';
 
-class ResultPage extends StatelessWidget {
+class ResultPage extends StatefulWidget {
   final String title;
   final String artist;
   final String image;
@@ -16,19 +16,36 @@ class ResultPage extends StatelessWidget {
   });
 
   @override
+  State<ResultPage> createState() => _ResultPageState();
+}
+
+class _ResultPageState extends State<ResultPage> {
+  List<Map<String, dynamic>> selectedSongs = [];
+
+  void updateSelectedSongs(List<Map<String, dynamic>> songs) {
+    setState(() {
+      selectedSongs = songs;
+    });
+    print("ResultPage에서 선택된 곡들: $selectedSongs");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text("검색 결과", style: TextStyle(color: Colors.white)),
-      ),
+
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SelectedMusicSection(title: title, artist: artist, image: image),
+            SelectedMusicSection(
+              title: widget.title,
+              artist: widget.artist,
+              image: widget.image,
+            ),
+
             const MoodSection(),
-            const RecommendationSection(),
+
+            RecommendationSection(onSelectionChanged: updateSelectedSongs),
           ],
         ),
       ),
