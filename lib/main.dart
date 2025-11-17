@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'features/search/search_view.dart';
+import 'features/home/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Music Mood App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: SearchView(),
+      home: HomePage(),
     );
   }
 }
