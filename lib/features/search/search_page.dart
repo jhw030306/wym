@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../result/result_page.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -87,7 +88,18 @@ class _SearchPageState extends State<SearchPage> {
             item["artist"]!,
             style: const TextStyle(color: Colors.white70),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ResultPage(
+                  title: item["title"]!,
+                  artist: item["artist"]!,
+                  image: item["image"]!,
+                ),
+              ),
+            );
+          },
         );
       },
     );
