@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'widgets/selected_music_section.dart';
 import 'widgets/mood_section.dart';
 import 'widgets/recommendation_section.dart';
+import 'widgets/platform_buttons_section.dart';
 
 class ResultPage extends StatefulWidget {
   final String title;
@@ -46,6 +47,8 @@ class _ResultPageState extends State<ResultPage> {
             const MoodSection(),
 
             RecommendationSection(onSelectionChanged: updateSelectedSongs),
+
+            if (selectedSongs.isNotEmpty) const PlatformButtonsSection(),
           ],
         ),
       ),
