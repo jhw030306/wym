@@ -4,6 +4,7 @@ import 'widgets/section_title.dart';
 import 'widgets/mood_section.dart';
 import 'widgets/popular_section.dart';
 import 'widgets/country_chart_section.dart';
+import '../search/search_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -26,7 +27,12 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: Colors.white),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SearchPage()),
+              );
+            },
           ),
         ],
       ),
