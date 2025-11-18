@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import '../result/result_page.dart';
+import '../../core/services/http_client.dart';
+import '../../shared/models/music_model.dart';
+import 'widgets/search_app_bar.dart';
+import 'widgets/search_empty_state.dart';
+import 'widgets/search_result_list.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -10,16 +14,33 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _controller = TextEditingController();
+  bool isLoading = false;
+  List<MusicModel> searchResults = [];
 
-  List<Map<String, String>> searchResults = [];
+  Future<void> _onSearch() async {
+    final query = _controller.text.trim();
+    if (query.isEmpty) return;
 
-  void _onSearch() {
     setState(() {
-      searchResults = [
-        {"title": "영웅", "artist": "NCT 127", "image": ""},
-        {"title": "Chewing Gum", "artist": "NCT dream", "image": ""},
-        {"title": "Ditto", "artist": "NewJeans", "image": ""},
-      ];
+      isLoading = true;
+      searchResults = [];
+    });
+
+    try {
+      final data = await HttpClient.get(
+        "/search",
+        params: {"q": query, "type": "track", "limit": "20"},
+      );
+
+      final items = data["tracks"]["items"] as List;
+
+      searchResults = items.map((item) => MusicModel.fromJson(item)).toList();
+    } catch (e) {
+      print("검색 에러: $e");
+    }
+
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -27,81 +48,12 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: TextField(
-          controller: _controller,
-          autofocus: true,
-          style: const TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            hintText: "노래 검색",
-            hintStyle: TextStyle(color: Colors.white54),
-            border: InputBorder.none,
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search, color: Colors.white),
-            onPressed: _onSearch,
-          ),
-        ],
-      ),
-      body: searchResults.isEmpty ? _buildEmptyState() : _buildSearchResults(),
-    );
-  }
-
-  Widget _buildEmptyState() {
-    return const Center(
-      child: Text(
-        "검색어를 입력해주세요",
-        style: TextStyle(color: Colors.white54, fontSize: 16),
-      ),
-    );
-  }
-
-  Widget _buildSearchResults() {
-    return ListView.builder(
-      itemCount: searchResults.length,
-      itemBuilder: (context, index) {
-        final item = searchResults[index];
-
-        return ListTile(
-          leading: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.white12,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: const Icon(Icons.music_note, color: Colors.white70),
-          ),
-          title: Text(
-            item["title"]!,
-            style: const TextStyle(color: Colors.white),
-          ),
-          subtitle: Text(
-            item["artist"]!,
-            style: const TextStyle(color: Colors.white70),
-          ),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => ResultPage(
-                  title: item["title"]!,
-                  artist: item["artist"]!,
-                  image: item["image"]!,
-                ),
-              ),
-            );
-          },
-        );
-      },
+      appBar: SearchAppBar(controller: _controller, onSearch: _onSearch),
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator(color: Colors.white))
+          : searchResults.isEmpty
+          ? SearchEmptyState()
+          : SearchResultList(results: searchResults),
     );
   }
 }
