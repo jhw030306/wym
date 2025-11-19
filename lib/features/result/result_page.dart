@@ -37,7 +37,7 @@ class _ResultPageState extends State<ResultPage> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          widget.item.title, // 👈 반드시 widget.item
+          widget.item.title,
           style: const TextStyle(
             color: Colors.white,
             fontSize: 24,

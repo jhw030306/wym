@@ -1,0 +1,19 @@
+[33m9d3d2f4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: reset: moving to HEAD~2
+[33ma1db532[m HEAD@{1}: reset: moving to HEAD~2
+[33m401f3dc[m HEAD@{2}: reset: moving to HEAD~2
+[33m5a90d6f[m HEAD@{3}: commit: refactor: 차트 부분 수정
+[33me17b1e2[m HEAD@{4}: commit: refactor : mood api 데이터 연결 시도
+[33m401f3dc[m HEAD@{5}: commit: refactor(search) : api 데이터 연결, 위젯 분리
+[33mce075d9[m HEAD@{6}: commit: feat(api) : 스포티파이 api연결
+[33ma1db532[m HEAD@{7}: commit: feat(model) : 노래, 분위기 모델 설정
+[33m2d9d66d[m HEAD@{8}: commit: refactor(result) : 노래 선택 시 플랫폼 버튼 ui
+[33m9d3d2f4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{9}: commit: refactor(result): 노래 선택
+[33mb6226b0[m HEAD@{10}: commit: refactor(result) : 결과 페이지 위젯 분리
+[33mbd81667[m HEAD@{11}: commit: feat(result) : 결과 페이지 UI 제작
+[33m7b5eaf0[m HEAD@{12}: commit: refactor(search) : 검색창 ui 및 구조 수정
+[33ma7b0544[m HEAD@{13}: commit: refactor(home) : 홈 화면 위젯 분리
+[33m5e6c73f[m HEAD@{14}: commit: feat(home) : 홈 페이지 ui 제작
+[33me1d2166[m HEAD@{15}: commit: feat(search) : 검색창 ui 제작
+[33m5c62440[m HEAD@{16}: commit: feat: 파일 기본 구조 추가
+[33m722800c[m HEAD@{17}: Branch: renamed refs/heads/master to refs/heads/main
+[33m722800c[m HEAD@{19}: commit (initial): docs: README

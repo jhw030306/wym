@@ -2,8 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ChartService {
-  static const String apiKey =
-      "4c367ddb78msh67ad68c86a58666p1a5bfdjsnd8b0532a7971"; // ← 여기에 넣기
+  static const String apiKey = "";
   static const String host = "spotify-scraper.p.rapidapi.com";
 
   static Future<List<dynamic>> fetchTopTracks(String countryCode) async {
