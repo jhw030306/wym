@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
             PopularSection(),
 
             SectionTitle("나라별 차트"),
-            CountryChartSection(),
+            CountryChartSection(selectedCountry: "KR"),
           ],
         ),
       ),

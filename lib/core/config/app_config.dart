@@ -3,5 +3,5 @@ class AppConfig {
   static const String clientSecret = "9f40905482184d6cb2f5b0c0070d5bb8";
 
   static const String authUrl = "https://accounts.spotify.com/api/token";
-  static const String baseUrl = "https://api.spotify.com/v1";
+  static const String baseUrl = "https://api.spotify.com/v1/";
 }

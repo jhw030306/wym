@@ -11,9 +11,10 @@ class HttpClient {
     return DateTime.now().isAfter(_tokenExpireTime!);
   }
 
+  /// 🔥 토큰 요청 (POST + Basic Auth)
   static Future<void> _getToken() async {
     final credentials = "${AppConfig.clientId}:${AppConfig.clientSecret}";
-    final encoded = base64Url.encode(utf8.encode(credentials));
+    final encoded = base64.encode(utf8.encode(credentials));
 
     final response = await http.post(
       Uri.parse(AppConfig.authUrl),
@@ -24,29 +25,40 @@ class HttpClient {
       body: {"grant_type": "client_credentials"},
     );
 
+    print("TOKEN RESPONSE: ${response.body}");
+
     final data = json.decode(response.body);
 
     _accessToken = data["access_token"];
     final int expiresIn = data["expires_in"];
-
     _tokenExpireTime = DateTime.now().add(Duration(seconds: expiresIn));
   }
 
-  static Future<dynamic> get(String url, {Map<String, String>? params}) async {
+  /// 🔥 실제 GET 요청
+  static Future<dynamic> get(String path, {Map<String, String>? params}) async {
     if (_accessToken.isEmpty || _isTokenExpired) {
       await _getToken();
     }
 
+    if (path.startsWith("/")) {
+      path = path.substring(1);
+    }
+
     final uri = Uri.parse(
-      "${AppConfig.baseUrl}$url",
+      AppConfig.baseUrl + path,
     ).replace(queryParameters: params);
 
     final response = await http.get(
       uri,
-      headers: {"Authorization": "Bearer $_accessToken"},
+      headers: {
+        "Authorization": "Bearer $_accessToken",
+        "Accept": "application/json", // 🔥 추가된 부분
+      },
     );
 
     if (response.statusCode != 200) {
+      print("요청 URL: $uri");
+      print("토큰: $_accessToken");
       throw Exception("API 요청 실패: ${response.statusCode}");
     }
 

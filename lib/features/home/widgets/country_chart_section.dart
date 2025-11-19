@@ -1,52 +1,80 @@
 import 'package:flutter/material.dart';
+import '../../../core/services/chart_service.dart';
 
-class CountryChartSection extends StatelessWidget {
-  const CountryChartSection({super.key});
+class CountryChartSection extends StatefulWidget {
+  final String selectedCountry;
+
+  const CountryChartSection({super.key, required this.selectedCountry});
+
+  @override
+  State<CountryChartSection> createState() => _CountryChartSectionState();
+}
+
+class _CountryChartSectionState extends State<CountryChartSection> {
+  List<dynamic> tracks = [];
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadChart();
+  }
+
+  Future<void> loadChart() async {
+    try {
+      final data = await ChartService.fetchTopTracks(widget.selectedCountry);
+      setState(() {
+        tracks = data;
+        loading = false;
+      });
+    } catch (e) {
+      print("차트 로딩 오류: $e");
+      setState(() {
+        loading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final countries = ["한국", "일본", "미국", "영국"];
+    if (loading) {
+      return const Padding(
+        padding: EdgeInsets.all(16),
+        child: CircularProgressIndicator(color: Colors.white),
+      );
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // 드롭다운
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: DropdownButton<String>(
-            dropdownColor: Colors.grey[900],
-            value: countries.first,
-            items: countries
-                .map(
-                  (c) => DropdownMenuItem(
-                    value: c,
-                    child: Text(c, style: const TextStyle(color: Colors.white)),
-                  ),
-                )
-                .toList(),
-            onChanged: (v) {},
+        const Text(
+          "인기 차트",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
+        const SizedBox(height: 16),
 
-        // 리스트
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: 5,
-          itemBuilder: (context, index) {
-            return ListTile(
-              leading: const Icon(Icons.music_note, color: Colors.white),
-              title: Text(
-                "차트 곡 $index",
-                style: const TextStyle(color: Colors.white),
-              ),
-              subtitle: const Text(
-                "아티스트",
-                style: TextStyle(color: Colors.white70),
-              ),
-            );
-          },
-        ),
+        ...tracks.take(10).map((track) {
+          return ListTile(
+            leading: Image.network(
+              track["thumbnail"],
+              width: 50,
+              height: 50,
+              fit: BoxFit.cover,
+            ),
+            title: Text(
+              track["track_name"],
+              style: const TextStyle(color: Colors.white),
+            ),
+            subtitle: Text(
+              track["artist_name"],
+              style: const TextStyle(color: Colors.grey),
+            ),
+          );
+        }),
       ],
     );
   }

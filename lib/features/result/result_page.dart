@@ -66,7 +66,7 @@ class _ResultPageState extends State<ResultPage> {
               image: widget.item.imageUrl,
             ),
 
-            const MoodSection(),
+            MoodSection(item: widget.item),
 
             RecommendationSection(onSelectionChanged: updateSelectedSongs),
 
