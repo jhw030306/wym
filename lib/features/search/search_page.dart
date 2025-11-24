@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/services/http_client.dart';
+import '../../core/services/lastfm_client.dart';
 import '../../shared/models/music_model.dart';
 import 'widgets/search_app_bar.dart';
 import 'widgets/search_empty_state.dart';
@@ -27,14 +27,22 @@ class _SearchPageState extends State<SearchPage> {
     });
 
     try {
-      final data = await HttpClient.get(
-        "/search",
-        params: {"q": query, "type": "track", "limit": "20"},
-      );
+      final data = await LastFmClient.get({
+        "method": "track.search",
+        "track": query,
+        "limit": "20",
+      });
 
-      final items = data["tracks"]["items"] as List;
+      final matches = data["results"]["trackmatches"]["track"] as List;
 
-      searchResults = items.map((item) => MusicModel.fromJson(item)).toList();
+      searchResults = matches.map((item) {
+        return MusicModel(
+          id: item["mbid"] ?? "",
+          title: item["name"] ?? "",
+          artist: item["artist"] ?? "",
+          imageUrl: (item["image"]?[1]?["#text"] ?? ""),
+        );
+      }).toList();
     } catch (e) {
       print("검색 에러: $e");
     }

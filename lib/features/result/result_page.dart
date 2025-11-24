@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../shared/models/music_model.dart';
 import '../search/search_page.dart';
 import 'widgets/selected_music_section.dart';
-import 'widgets/mood_section.dart';
+// import 'widgets/mood_section.dart';
 import 'widgets/recommendation_section.dart';
 import 'widgets/platform_buttons_section.dart';
 
@@ -66,8 +66,7 @@ class _ResultPageState extends State<ResultPage> {
               image: widget.item.imageUrl,
             ),
 
-            MoodSection(item: widget.item),
-
+            // MoodSection(item: widget.item),
             RecommendationSection(onSelectionChanged: updateSelectedSongs),
 
             if (selectedSongs.isNotEmpty) const PlatformButtonsSection(),
