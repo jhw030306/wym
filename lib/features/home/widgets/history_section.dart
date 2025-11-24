@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class HistorySection extends StatelessWidget {
   const HistorySection({super.key});
-
   @override
   Widget build(BuildContext context) {
     final dummyHistory = [
@@ -11,7 +10,6 @@ class HistorySection extends StatelessWidget {
       {"title": "Love Dive", "artist": "IVE"},
       {"title": "Ditto", "artist": "NewJeans"},
     ];
-
     return SizedBox(
       height: 170,
       child: ListView.builder(
@@ -30,7 +28,6 @@ class HistorySection extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // 앨범 이미지 자리 → 나중에 실제 이미지 넣으면 됨
                 Container(
                   height: 70,
                   width: 70,

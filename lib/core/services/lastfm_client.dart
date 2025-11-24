@@ -11,13 +11,10 @@ class LastFmClient {
         "format": "json",
       },
     );
-
     final response = await http.get(uri);
-
     if (response.statusCode != 200) {
       throw Exception("Last.fm API 오류: ${response.statusCode}");
     }
-
     return json.decode(response.body);
   }
 }

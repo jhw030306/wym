@@ -3,7 +3,7 @@ import 'package:wym/features/home/widgets/history_section.dart';
 import 'widgets/section_title.dart';
 import 'widgets/mood_section.dart';
 import 'widgets/popular_section.dart';
-import 'widgets/country_chart_section.dart';
+// import 'widgets/country_chart_section.dart';
 import '../search/search_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
             PopularSection(),
 
             SectionTitle("나라별 차트"),
-            CountryChartSection(selectedCountry: "KR"),
+            // CountryChartSection(selectedCountry: "KR"),
           ],
         ),
       ),
